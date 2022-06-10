@@ -3,8 +3,8 @@ module Morse (alphaToMorse, morseToAlpha) where
 import Data.Map (Map)
 import qualified Data.Map as Map
 
-alphaMorseList :: [(Char, String)]
-alphaMorseList =
+alphaToMorseList :: [(Char, String)]
+alphaToMorseList =
     [ ('a', ".-"  ), ('b', "-...")
     , ('c', "-.-."), ('d', "-.." )
     , ('e', "."   ), ('f', "..-.")
@@ -26,8 +26,14 @@ alphaMorseList =
     , ('8', "---.."), ('9', "----.")
     ]
 
-alphaToMorse :: Map Char String
-alphaToMorse = Map.fromList alphaMorseList
+alphaToMorseMap :: Map Char String
+alphaToMorseMap = Map.fromList alphaToMorseList
 
-morseToAlpha :: Map String Char
-morseToAlpha = Map.fromList $ map (\(x, y) -> (y, x)) alphaMorseList
+morseToAlphaMap :: Map String Char
+morseToAlphaMap = Map.fromList $ map (\(x, y) -> (y, x)) alphaToMorseList
+
+alphaToMorse :: Char -> String
+alphaToMorse = (Map.!) alphaToMorseMap
+
+morseToAlpha :: String -> Char
+morseToAlpha = (Map.!) morseToAlphaMap
