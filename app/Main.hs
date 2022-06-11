@@ -22,8 +22,8 @@ writePractice = do
     if fixSpaces guess == morse
     then putStrLn "Correct!"
     else do
-        putStrLn "Incorrect!"
-        putStrLn $ "Correct was " ++ morse
+        putStrLn "Incorrect! Correct was:"
+        putStrLn morse
     putStrLn ""
     writePractice
   where 
