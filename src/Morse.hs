@@ -1,12 +1,15 @@
 module Morse (alphaToMorse, morseToAlpha, wordToMorse) where
 
+-- import Data.Function ((&))
+import Control.Arrow ((>>>))
+
 import Data.Map (Map)
 import qualified Data.Map as Map
 import qualified Data.List as List (intersperse)
-import qualified Data.Char as Char (toLower)
+import qualified Data.Char as Char (toLower, isAlpha)
 
-alphaToMorseList :: [(Char, String)]
-alphaToMorseList =
+charToMorseList :: [(Char, String)]
+charToMorseList =
     [ ('a', ".-"  ), ('b', "-...")
     , ('c', "-.-."), ('d', "-.." )
     , ('e', "."   ), ('f', "..-.")
@@ -28,17 +31,21 @@ alphaToMorseList =
     , ('8', "---.."), ('9', "----.")
     ]
 
-alphaToMorseMap :: Map Char String
-alphaToMorseMap = Map.fromList alphaToMorseList
+charToMorseMap :: Map Char String
+charToMorseMap = Map.fromList charToMorseList
 
-morseToAlphaMap :: Map String Char
-morseToAlphaMap = Map.fromList $ map (\(x, y) -> (y, x)) alphaToMorseList
+morseToCharMap :: Map String Char
+morseToCharMap = Map.fromList $ map (\(x, y) -> (y, x)) alphaToMorseList
 
-alphaToMorse :: Char -> String
-alphaToMorse = (Map.!) alphaToMorseMap . Char.toLower
+charToMorse :: Char -> String
+charToMorse = (Map.!) alphaToMorseMap . Char.toLower
 
-morseToAlpha :: String -> Char
-morseToAlpha = (Map.!) morseToAlphaMap
+morseToChar :: String -> Char
+morseToChar = (Map.!) morseToAlphaMap
 
 wordToMorse :: String -> String
-wordToMorse = concat . List.intersperse "   " . map alphaToMorse
+wordToMorse
+    =   filter (\c -> Char.isAlpha c || c == ' ')
+    >>> map (\c -> if Char.isAlpha c then charToMorse c else " ")
+    >>> List.intersperse "   "
+    >>> concat
