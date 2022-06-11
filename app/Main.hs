@@ -1,16 +1,16 @@
 module Main where
 
-import qualified Morse (wordToMorse)
-import qualified Words (testWords)
+import qualified Morse
+import qualified Words
 
 -- import Data.Function ((&))
 -- import Control.Arrow ((>>>))
 
-import qualified System.Random as Random (randomRIO)
+import qualified System.Random as Random
 -- import Data.Vector (Vector)
-import qualified Data.Vector as Vector (unsafeIndex, length)
-import qualified Data.List as List (intersperse)
-import qualified Data.Char as Char (toLower)
+import qualified Data.Vector as Vector
+import qualified Data.List as List
+import qualified Data.Char as Char
 
 getTest :: IO (String, String)
 getTest = do

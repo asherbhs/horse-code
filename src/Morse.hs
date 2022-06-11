@@ -5,9 +5,9 @@ import Control.Arrow ((>>>))
 
 import Data.Map (Map)
 import qualified Data.Map as Map
-import qualified Data.List as List (intersperse)
-import qualified Data.Char as Char (toLower, isAlpha, isDigit)
-import qualified Data.Tuple as Tuple (swap)
+import qualified Data.List as List
+import qualified Data.Char as Char
+import qualified Data.Tuple as Tuple
 
 charToMorseList :: [(Char, String)]
 charToMorseList =

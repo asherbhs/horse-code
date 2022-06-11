@@ -1,8 +1,8 @@
 module Words (testWords) where
 
 import Data.Vector (Vector)
-import qualified Data.Vector as Vector (fromList)
-import qualified Data.Char as Char (toLower)
+import qualified Data.Vector as Vector
+import qualified Data.Char as Char
 
 testWords :: Vector String
 testWords = Vector.fromList $ map (map Char.toLower)
