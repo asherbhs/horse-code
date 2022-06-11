@@ -1,38 +1,45 @@
 module Main where
 
-import Morse (alphaToMorse)
+import Morse (wordToMorse)
+import Words (testWords)
 
-import System.Random (randomRIO) 
+import qualified System.Random as Random (randomRIO)
+import Data.Vector (Vector)
+import qualified Data.Vector as Vector (unsafeIndex, length)
+import qualified Data.List as List (intersperse)
 
-getTest :: IO (Char, String)
+getTest :: IO (String, String)
 getTest = do
-    r <- randomRIO (0, 25)
-    let alpha = ['a'..'z'] !! r
-    return (alpha, alphaToMorse alpha)
+    r <- Random.randomRIO (0, Vector.length testWords - 1)
+    let w = Vector.unsafeIndex testWords r
+    return (w, wordToMorse w)
 
 writePractice :: IO ()
 writePractice = do
-    (alpha, morse) <- getTest
-    putStrLn $ [alpha] ++ ": "
+    (plain, morse) <- getTest
+    putStrLn plain
     guess <- getLine
-    putStrLn $ 
-        if guess == morse 
-        then "Correct!" 
-        else "Wrong! The correct answer was " ++ morse
+    if fixSpaces guess == morse
+    then putStrLn "Correct!"
+    else do
+        putStrLn "Incorrect!"
+        putStrLn $ "Correct was " ++ morse
     putStrLn ""
     writePractice
+  where 
+    -- corrects the spacing between letters to the morse code standard of 3
+    fixSpaces = concat . List.intersperse "   " . words
 
 readPractice :: IO ()
 readPractice = do
-    (alpha, morse) <- getTest
-    putStrLn $ morse ++ ": "
+    (plain, morse) <- getTest
+    putStrLn morse 
     guess <- getLine
-    case guess of
-        [c] -> putStrLn $ 
-            if c == alpha 
-            then "Correct!" 
-            else "Wrong! The correct answer was " ++ ['\'', alpha, '\'']
-        _   -> return ()
+    if guess == plain
+    then putStrLn "Correct!"
+    else do
+        putStrLn "Incorrect!"
+        putStrLn $ "Correct was " ++ plain
     putStrLn ""
     readPractice
 

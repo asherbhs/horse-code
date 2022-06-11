@@ -1,7 +1,8 @@
-module Morse (alphaToMorse, morseToAlpha) where
+module Morse (alphaToMorse, morseToAlpha, wordToMorse) where
 
 import Data.Map (Map)
 import qualified Data.Map as Map
+import qualified Data.List as List (intersperse)
 
 alphaToMorseList :: [(Char, String)]
 alphaToMorseList =
@@ -9,11 +10,11 @@ alphaToMorseList =
     , ('c', "-.-."), ('d', "-.." )
     , ('e', "."   ), ('f', "..-.")
     , ('g', "--." ), ('h', "....")
-    , ('i', ".."  ), ('j', "---.")
+    , ('i', ".."  ), ('j', ".---")
     , ('k', "-.-" ), ('l', ".-..")
     , ('m', "--"  ), ('n', "-."  )
     , ('o', "---" ), ('p', ".--.")
-    , ('q', "--.-"), ('r', "-.-" )
+    , ('q', "--.-"), ('r', ".-." )
     , ('s', "..." ), ('t', "-"   )
     , ('u', "..-" ), ('v', "...-")
     , ('w', ".--" ), ('x', "-..-")
@@ -37,3 +38,6 @@ alphaToMorse = (Map.!) alphaToMorseMap
 
 morseToAlpha :: String -> Char
 morseToAlpha = (Map.!) morseToAlphaMap
+
+wordToMorse :: String -> String
+wordToMorse = concat . List.intersperse "   " . map alphaToMorse

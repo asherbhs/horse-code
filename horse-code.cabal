@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Morse
+      Words
   other-modules:
       Paths_horse_code
   hs-source-dirs:
@@ -34,6 +35,7 @@ library
       base >=4.7 && <5
     , containers
     , random
+    , vector
   default-language: Haskell2010
 
 executable horse-code-exe
@@ -48,6 +50,7 @@ executable horse-code-exe
     , containers
     , horse-code
     , random
+    , vector
   default-language: Haskell2010
 
 test-suite horse-code-test
@@ -63,4 +66,5 @@ test-suite horse-code-test
     , containers
     , horse-code
     , random
+    , vector
   default-language: Haskell2010

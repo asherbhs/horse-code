@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - containers # Data.Map
 - random
+- vector
 
 library:
   source-dirs: src
