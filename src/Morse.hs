@@ -46,7 +46,15 @@ morseToChar = (Map.!) morseToCharMap
 
 wordToMorse :: String -> String
 wordToMorse
-    =   filter (\c -> Char.isAlpha c || Char.isDigit c || c == ' ')
-    >>> map (\c -> if c == ' ' then " " else charToMorse c)
+    =   filter (\c 
+            -> Char.isAlpha c 
+            || Char.isDigit c 
+            || c == ' '
+        )
+    >>> map (\c -> 
+            if c == ' ' 
+            then " " 
+            else charToMorse c
+        )
     >>> List.intersperse "   "
     >>> concat
