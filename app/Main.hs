@@ -50,4 +50,4 @@ main = do
     case readOrWrite of
         "r" -> readPractice
         "w" -> writePractice
-        _   -> main
+        ___ -> main
