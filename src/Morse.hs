@@ -7,6 +7,7 @@ import Data.Map (Map)
 import qualified Data.Map as Map
 import qualified Data.List as List (intersperse)
 import qualified Data.Char as Char (toLower, isAlpha, isDigit)
+import qualified Data.Tuple as Tuple (swap)
 
 charToMorseList :: [(Char, String)]
 charToMorseList =
@@ -35,7 +36,7 @@ charToMorseMap :: Map Char String
 charToMorseMap = Map.fromList charToMorseList
 
 morseToCharMap :: Map String Char
-morseToCharMap = Map.fromList $ map (\(x, y) -> (y, x)) charToMorseList
+morseToCharMap = Map.fromList $ map Tuple.swap charToMorseList
 
 charToMorse :: Char -> String
 charToMorse = (Map.!) charToMorseMap . Char.toLower
