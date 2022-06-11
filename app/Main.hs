@@ -1,12 +1,16 @@
 module Main where
 
-import qualified Morse (wordToMorse)
+import qualified Morse (wordToMorse, alphaToMorse)
 import qualified Words (testWords)
+
+import Data.Function ((&))
+-- import Control.Arrow ((>>>))
 
 import qualified System.Random as Random (randomRIO)
 -- import Data.Vector (Vector)
 import qualified Data.Vector as Vector (unsafeIndex, length)
 import qualified Data.List as List (intersperse)
+import qualified Data.Char as Char (isAlpha)
 
 getTest :: IO (String, String)
 getTest = do
@@ -43,11 +47,23 @@ readPractice = do
     putStrLn ""
     readPractice
 
+translateMorse :: IO ()
+translateMorse = do
+    plain <- getLine
+    putStrLn $ plain
+        & filter Char.isAlpha
+        & map Morse.alphaToMorse
+        & List.intersperse "   "
+        & concat
+    translateMorse
+
 main :: IO ()
 main = do
-    putStrLn "Practise reading or writing morse? (r/w): "
+    putStrLn 
+        "Practice (r)eading morse, (w)riting morse, or (t)ranslate to morse (r/w/t): "
     readOrWrite <- getLine
     case readOrWrite of
         "r" -> readPractice
         "w" -> writePractice
+        "t" -> translateMorse
         ___ -> main

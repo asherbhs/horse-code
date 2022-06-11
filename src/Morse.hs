@@ -3,6 +3,7 @@ module Morse (alphaToMorse, morseToAlpha, wordToMorse) where
 import Data.Map (Map)
 import qualified Data.Map as Map
 import qualified Data.List as List (intersperse)
+import qualified Data.Char as Char (toLower)
 
 alphaToMorseList :: [(Char, String)]
 alphaToMorseList =
@@ -34,7 +35,7 @@ morseToAlphaMap :: Map String Char
 morseToAlphaMap = Map.fromList $ map (\(x, y) -> (y, x)) alphaToMorseList
 
 alphaToMorse :: Char -> String
-alphaToMorse = (Map.!) alphaToMorseMap
+alphaToMorse = (Map.!) alphaToMorseMap . Char.toLower
 
 morseToAlpha :: String -> Char
 morseToAlpha = (Map.!) morseToAlphaMap
