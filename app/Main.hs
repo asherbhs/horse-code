@@ -55,13 +55,14 @@ writePractice = do
     (plain, morse) <- getTest
     putStrLn plain
     guess <- getLine
-    if fixSpaces guess == morse
-    then putStrLn "Correct!"
-    else do
-        putStrLn "Incorrect! Correct was:"
-        putStrLn morse
-    putStrLn ""
-    writePractice
+    if guess == "quit" then putStrLn "" >> main else do
+        if fixSpaces guess == morse
+        then putStrLn "Correct!"
+        else do
+            putStrLn "Incorrect! Correct was:"
+            putStrLn morse
+        putStrLn ""
+        writePractice
   where 
     -- corrects the spacing between letters to the morse code standard of 3
     fixSpaces = concat . List.intersperse "   " . words
@@ -71,19 +72,21 @@ readPractice = do
     (plain, morse) <- getTest
     putStrLn morse 
     guess <- getLine
-    if map Char.toLower guess == plain
-    then putStrLn "Correct!"
-    else do
-        putStrLn "Incorrect!"
-        putStrLn $ "Correct was:\t" ++ plain
-    putStrLn ""
-    readPractice
+    if guess == "quit" then putStrLn "" >> main else do
+        if map Char.toLower guess == plain
+        then putStrLn "Correct!"
+        else do
+            putStrLn "Incorrect!"
+            putStrLn $ "Correct was:\t" ++ plain
+        putStrLn ""
+        readPractice
 
 translateMorse :: IO ()
 translateMorse = do
     plain <- getLine
-    putStrLn $ Morse.wordToMorse plain
-    translateMorse
+    if plain == "quit" then putStrLn "" >> main else do
+        putStrLn $ Morse.wordToMorse plain
+        translateMorse
 
 main :: IO ()
 main = do
