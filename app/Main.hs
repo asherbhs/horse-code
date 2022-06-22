@@ -56,16 +56,13 @@ writePractice = do
     putStrLn plain
     guess <- getLine
     if guess == "quit" then putStrLn "" >> main else do
-        if fixSpaces guess == morse
+        if guess == morse
         then putStrLn "Correct!"
         else do
             putStrLn "Incorrect! Correct was:"
             putStrLn morse
         putStrLn ""
         writePractice
-  where 
-    -- corrects the spacing between letters to the morse code standard of 3
-    fixSpaces = concat . List.intersperse "   " . words
 
 readPractice :: IO ()
 readPractice = do
