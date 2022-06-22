@@ -58,5 +58,5 @@ wordToMorse :: String -> String
 wordToMorse
     =   filter (\it -> Map.member (Char.toLower it) charToMorseMap || it == ' ')
     >>> map    (\it -> if it == ' ' then " " else charToMorse $ Char.toLower it)
-    >>> List.intersperse "   "
+    >>> List.intersperse " "
     >>> concat

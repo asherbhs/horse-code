@@ -5,7 +5,27 @@ import qualified Data.Vector as Vector
 import qualified Data.Char as Char
 
 testWords :: Vector String
-testWords = Vector.fromList $ map (map Char.toLower)
+testWords = natoPhoneticAlphabet
+
+natoPhoneticAlphabet :: Vector String
+natoPhoneticAlphabet = Vector.fromList $ map (map Char.toLower)
+    [ "Alfa"   , "Bravo"
+    , "Charlie", "Delta"
+    , "Echo"   , "Foxtrot"
+    , "Golf"   , "Hotel"
+    , "India"  , "Juliett"
+    , "Kilo"   , "Lima"
+    , "Mike"   , "November"
+    , "Oscar"  , "Papa"
+    , "Quebec" , "Romeo"
+    , "Sierra" , "Tango"
+    , "Whiskey", "Uniform"
+    , "Victor" , "X-ray"
+    , "Yankee" , "Zulu"
+    ]
+
+tenk :: Vector String
+tenk = Vector.fromList $ map (map Char.toLower)
     [ "a"
     , "abandoned"
     , "abbey"
