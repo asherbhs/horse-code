@@ -37,7 +37,7 @@ getTest = do
         _ -> do
             index2 <- Random.randomRIO (0, Vector.length Words.testWords - 1)
             let word2 = Vector.unsafeIndex Words.testWords index2
-            let infixStr = case testType of
+                infixStr = case testType of
                     9  -> "/"
                     10 -> " & "
                     11 -> ": "
