@@ -9,6 +9,7 @@ import qualified Tools
 -- import Control.Arrow ((>>>))
 
 import qualified System.Random as Random
+import System.Environment (getArgs)
 -- import Data.Vector (Vector)
 import qualified Data.Vector as Vector
 -- import qualified Data.List as List
@@ -20,7 +21,7 @@ getInputOrHandleCommand :: IO String
 getInputOrHandleCommand = do
     input <- getLine
     case input of 
-        "quit" -> main >> return "will never be returned"
+        "quit" -> run >> return "will never be returned"
         "help" -> do
             forM_ (zip [0 :: Integer ..] Morse.charToMorseList)
                 (\(i, (c, m)) -> 
@@ -101,8 +102,8 @@ translateMorse = do
     putStrLn $ Morse.wordToMorse plain
     translateMorse
 
-main :: IO ()
-main = do
+run :: IO ()
+run = do
     putStrLn 
         "Practice (r)eading morse, (w)riting morse, or (t)ranslate to morse (r/w/t): "
     readOrWrite <- getLine
@@ -110,4 +111,15 @@ main = do
         "r" -> readPractice
         "w" -> writePractice
         "t" -> translateMorse
-        ___ -> main
+        ___ -> run
+
+main :: IO ()
+main = do
+    args <- getArgs
+    -- sequence_ $ map putStrLn args
+    case args of
+        []            -> run
+        ["run"]       -> run
+        ["encode"]    -> interact Morse.wordToMorse
+        ["encode", s] -> putStrLn $ Morse.wordToMorse s
+        _             -> putStrLn "unrecognised arguments"
