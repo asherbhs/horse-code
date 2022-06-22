@@ -2,6 +2,7 @@ module Main where
 
 import qualified Morse
 import qualified Words
+import qualified Tools
 
 -- import Data.Function ((&))
 -- import Control.Arrow ((>>>))
@@ -11,6 +12,24 @@ import qualified System.Random as Random
 import qualified Data.Vector as Vector
 import qualified Data.List as List
 import qualified Data.Char as Char
+
+import Control.Monad
+
+getInputOrHandleCommand :: IO String
+getInputOrHandleCommand = do
+    input <- getLine
+    case input of 
+        "quit" -> main >> return "will never be returned"
+        "help" -> do
+            forM (zip [0 ..] Morse.charToMorseList)
+                (\(i, (c, m)) -> 
+                  let
+                    putStrMaybeLn = if even i then putStr else putStrLn
+                  in
+                    putStrMaybeLn $ Tools.padRight 16 ' ' $ [c] ++ ": " ++ m
+                )
+            getInputOrHandleCommand
+        _ -> return input
 
 getTest :: IO (String, String)
 getTest = do
@@ -54,36 +73,33 @@ writePractice :: IO ()
 writePractice = do
     (plain, morse) <- getTest
     putStrLn plain
-    guess <- getLine
-    if guess == "quit" then putStrLn "" >> main else do
-        if guess == morse
-        then putStrLn "Correct!"
-        else do
-            putStrLn "Incorrect! Correct was:"
-            putStrLn morse
-        putStrLn ""
-        writePractice
+    guess <- getInputOrHandleCommand
+    if guess == morse
+    then putStrLn "Correct!"
+    else do
+        putStrLn "Incorrect! Correct was:"
+        putStrLn morse
+    putStrLn ""
+    writePractice
 
 readPractice :: IO ()
 readPractice = do
     (plain, morse) <- getTest
     putStrLn morse 
-    guess <- getLine
-    if guess == "quit" then putStrLn "" >> main else do
-        if map Char.toLower guess == plain
-        then putStrLn "Correct!"
-        else do
-            putStrLn "Incorrect!"
-            putStrLn $ "Correct was:\t" ++ plain
-        putStrLn ""
-        readPractice
+    guess <- getInputOrHandleCommand
+    if map Char.toLower guess == plain
+    then putStrLn "Correct!"
+    else do
+        putStrLn "Incorrect!"
+        putStrLn $ "Correct was:\t" ++ plain
+    putStrLn ""
+    readPractice
 
 translateMorse :: IO ()
 translateMorse = do
-    plain <- getLine
-    if plain == "quit" then putStrLn "" >> main else do
-        putStrLn $ Morse.wordToMorse plain
-        translateMorse
+    plain <- getInputOrHandleCommand
+    putStrLn $ Morse.wordToMorse plain
+    translateMorse
 
 main :: IO ()
 main = do

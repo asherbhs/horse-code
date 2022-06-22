@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Morse
+      Tools
       Words
   other-modules:
       Paths_horse_code
