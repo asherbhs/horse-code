@@ -1,4 +1,9 @@
-module Morse (charToMorse, morseToChar, wordToMorse) where
+module Morse
+    ( charToMorse
+    , morseToChar
+    , wordToMorse
+    , charToMorseList
+    ) where
 
 -- import Data.Function ((&))
 import Control.Arrow ((>>>))
