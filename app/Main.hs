@@ -11,10 +11,10 @@ import qualified Tools
 import qualified System.Random as Random
 -- import Data.Vector (Vector)
 import qualified Data.Vector as Vector
-import qualified Data.List as List
+-- import qualified Data.List as List
 import qualified Data.Char as Char
 
-import Control.Monad
+import Control.Monad (forM_)
 
 getInputOrHandleCommand :: IO String
 getInputOrHandleCommand = do
@@ -22,7 +22,7 @@ getInputOrHandleCommand = do
     case input of 
         "quit" -> main >> return "will never be returned"
         "help" -> do
-            forM (zip [0 ..] Morse.charToMorseList)
+            forM_ (zip [0 :: Integer ..] Morse.charToMorseList)
                 (\(i, (c, m)) -> 
                   let
                     putStrMaybeLn = even i ? putStr $ putStrLn
