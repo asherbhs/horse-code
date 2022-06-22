@@ -75,7 +75,7 @@ readPractice = do
     then putStrLn "Correct!"
     else do
         putStrLn "Incorrect!"
-        putStrLn $ "Correct was " ++ plain
+        putStrLn $ "Correct was:\t" ++ plain
     putStrLn ""
     readPractice
 
