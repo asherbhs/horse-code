@@ -14,9 +14,41 @@ import qualified Data.Char as Char
 
 getTest :: IO (String, String)
 getTest = do
-    r <- Random.randomRIO (0, Vector.length Words.testWords - 1)
-    let w = Vector.unsafeIndex Words.testWords r
-    return (w, Morse.wordToMorse w)
+    testType <- Random.randomRIO (0 :: Int, 16 :: Int)
+    index1 <- Random.randomRIO (0, Vector.length Words.testWords - 1)
+    let word1 = Vector.unsafeIndex Words.testWords index1
+    string <- case testType of
+        -- no punctuation case
+        0 -> return word1
+        
+        -- single word with punctuation
+        1 -> return $ word1 ++ "."
+        2 -> return $ word1 ++ "?"
+        3 -> return $ word1 ++ "!"
+        4 -> return $ "$" ++ word1
+        5 -> return $ "@" ++ word1
+
+        -- enclosing punctuation
+        6 -> return $ "("  ++ word1 ++ ")"
+        7 -> return $ "\"" ++ word1 ++ "\""
+        8 -> return $ "'"  ++ word1 ++ "'"
+
+        -- two words
+        _ -> do
+            index2 <- Random.randomRIO (0, Vector.length Words.testWords - 1)
+            let word2 = Vector.unsafeIndex Words.testWords index2
+            let infixStr = case testType of
+                    9  -> "/"
+                    10 -> " & "
+                    11 -> ": "
+                    12 -> "; "
+                    13 -> " = "
+                    14 -> " + "
+                    15 -> " - "
+                    16 -> "_"
+                    __ -> ""
+            return $ word1 ++ infixStr ++ word2
+    return (string, Morse.wordToMorse string)
 
 writePractice :: IO ()
 writePractice = do

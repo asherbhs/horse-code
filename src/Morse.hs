@@ -30,6 +30,16 @@ charToMorseList =
     , ('4', "....-"), ('5', ".....")
     , ('6', "-...."), ('7', "--...")
     , ('8', "---.."), ('9', "----.")
+
+    , ('.', ".-.-.-"), (',', "--..--")
+    , ('?', "..--.."), ('\'', ".----.")
+    , ('!', "-.-.--"), ('/', "-..-." )
+    , ('(', "-.--." ), (')', "-.--.-")
+    , ('&', ".-..." ), (':', "---...")
+    , (';', "-.-.-."), ('=', "-...-" )
+    , ('+', ".-.-." ), ('-', "-....-")
+    , ('_', "..--.-"), ('"', ".-..-.")
+    , ('$', "...-..-"), ('@', ".--.-.")
     ]
 
 charToMorseMap :: Map Char String
@@ -46,15 +56,7 @@ morseToChar = (Map.!) morseToCharMap
 
 wordToMorse :: String -> String
 wordToMorse
-    =   filter (\it 
-            -> Char.isAlpha it 
-            || Char.isDigit it 
-            || it == ' '
-        )
-    >>> map (\it -> 
-            if it == ' ' 
-            then " " 
-            else charToMorse it
-        )
+    =   filter (\it -> Map.member (Char.toLower it) charToMorseMap || it == ' ')
+    >>> map    (\it -> if it == ' ' then " " else charToMorse $ Char.toLower it)
     >>> List.intersperse "   "
     >>> concat
