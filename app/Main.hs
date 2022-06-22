@@ -2,6 +2,7 @@ module Main where
 
 import qualified Morse
 import qualified Words
+import Tools ((?))
 import qualified Tools
 
 -- import Data.Function ((&))
@@ -24,7 +25,7 @@ getInputOrHandleCommand = do
             forM (zip [0 ..] Morse.charToMorseList)
                 (\(i, (c, m)) -> 
                   let
-                    putStrMaybeLn = if even i then putStr else putStrLn
+                    putStrMaybeLn = even i ? putStr $ putStrLn
                   in
                     putStrMaybeLn $ Tools.padRight 16 ' ' $ [c] ++ " is " ++ m
                 )
