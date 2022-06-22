@@ -26,7 +26,7 @@ getInputOrHandleCommand = do
                   let
                     putStrMaybeLn = if even i then putStr else putStrLn
                   in
-                    putStrMaybeLn $ Tools.padRight 16 ' ' $ [c] ++ ": " ++ m
+                    putStrMaybeLn $ Tools.padRight 16 ' ' $ [c] ++ " is " ++ m
                 )
             getInputOrHandleCommand
         _ -> return input
