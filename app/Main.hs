@@ -24,10 +24,9 @@ getInputOrHandleCommand = do
         "help" -> do
             forM_ (zip [0 :: Integer ..] Morse.charToMorseList)
                 (\(i, (c, m)) -> 
-                  let
-                    putStrMaybeLn = even i ? putStr $ putStrLn
-                  in
-                    putStrMaybeLn $ Tools.padRight 16 ' ' $ [c] ++ " is " ++ m
+                    (even i ? putStr $ putStrLn) 
+                        $ Tools.padRight 16 ' ' 
+                        $ [c] ++ " is " ++ m
                 )
             getInputOrHandleCommand
         _ -> return input
