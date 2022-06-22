@@ -29,7 +29,6 @@ library:
   source-dirs: src
   ghc-options:
     - -Wall
-    - -Werror
 
 executables:
   horse-code-exe:
@@ -40,7 +39,6 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     - -Wall
-    - -Werror
     dependencies:
     - horse-code
 
