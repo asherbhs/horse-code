@@ -5,7 +5,10 @@ import qualified Data.Vector as Vector
 import qualified Data.Char as Char
 
 testWords :: Vector String
-testWords = natoPhoneticAlphabet
+testWords = singleDigits Vector.++ natoPhoneticAlphabet
+
+singleDigits :: Vector String
+singleDigits = Vector.fromList $ map show [0..9]
 
 natoPhoneticAlphabet :: Vector String
 natoPhoneticAlphabet = Vector.fromList $ map (map Char.toLower)
